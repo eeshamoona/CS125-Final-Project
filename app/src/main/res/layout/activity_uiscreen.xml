@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/taskList"
+        android:id="@+id/taskGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="280dp"
@@ -26,7 +26,19 @@
         android:layout_marginBottom="80dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:id="@+id/taskList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="280dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginBottom="80dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

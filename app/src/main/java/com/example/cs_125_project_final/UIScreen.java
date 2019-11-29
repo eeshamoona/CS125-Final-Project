@@ -3,7 +3,9 @@ package com.example.cs_125_project_final;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +39,15 @@ public class UIScreen extends AppCompatActivity {
         taskList.removeAllViews();;
 
         JsonArray taskArray = result.get("tasks").getAsJsonArray();
+        for (JsonElement taskElement : taskArray) {
+            ViewGroup taskGroup = findViewById(R.id.taskGroup);
+            View taskChunk = getLayoutInflater().inflate(R.layout.chunk_uiscreen,
+                    taskList, false);
+            JsonObject taskObj = taskElement.getAsJsonObject();
+
+            TextView task = taskChunk.findViewById(R.id.taskToDo);
+            task.setText(taskObj.getAsString());
+        }
     }
 
 
