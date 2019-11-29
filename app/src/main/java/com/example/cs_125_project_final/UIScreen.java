@@ -23,18 +23,10 @@ public class UIScreen extends AppCompatActivity {
 
     /** Use this method to refresh the tasks being displayed */
     public void refresh() {
-        WebApi.startRequest(this, WebApi.API_BASE + "/games", response -> {
-            // Code in this handler will run when the request completes successfully
-            // Do something with the response?
-            setUpDisplay(response);
-        }, error -> {
-            // Code in this handler will run if the request fails
-            // Maybe notify the user of the error?
-            Toast.makeText(this, "Oh no!", Toast.LENGTH_LONG).show();
-        });
+
     }
 
-    public void setUpDisplay(final JsonObject result ) {
+    public void setUpDisplay(final JsonObject result) {
         ViewGroup taskList = findViewById(R.id.taskList);
         taskList.removeAllViews();;
 
