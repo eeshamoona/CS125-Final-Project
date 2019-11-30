@@ -6,17 +6,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.tasks.Tasks;
+import com.google.api.services.tasks.TasksScopes;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
+import com.google.gson.JsonParser;
+
+import org.json.JSONObject;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import java.util.List;
 
 public class UIScreen extends AppCompatActivity {
 
@@ -28,7 +55,8 @@ public class UIScreen extends AppCompatActivity {
 
     /** Use this method to refresh the tasks being displayed */
     public void refresh() {
-        final TextView textView = findViewById(R.id.text);
+        final TextView textView = (TextView) findViewById(R.id.text);
+// ...
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -39,8 +67,9 @@ public class UIScreen extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        textView.setText("Response is: "+ response.substring(0,500));
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(response);
+                        setUpDisplay(element.getAsJsonObject());
                     }
                 }, new Response.ErrorListener() {
             @Override
