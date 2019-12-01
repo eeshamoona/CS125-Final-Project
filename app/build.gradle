@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.cs_125_project_final"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,13 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.30.5'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
     implementation 'com.google.apis:google-api-services-tasks:v1-rev49-1.23.0'
+    implementation("com.google.firebase:firebase-core:17.2.0")
+    implementation("com.google.firebase:firebase-auth:19.0.0")
+    implementation("com.firebaseui:firebase-ui-auth:4.3.1")
+    implementation("com.neovisionaries:nv-websocket-client:2.9")
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -6,8 +6,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.google.gson.JsonObject;
 
 /**
  * Task Class used to process the data the user enters on the activity_task screen.
@@ -19,13 +23,7 @@ public class Task extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        //get a list of verbs for the user to pick from??
-
         //includes a scrolling list of verbs
-        //a text box for the user to fill in
-        //another scrolling list of times
-        //add button
-
         Spinner verbs = findViewById(R.id.Verbs);
             // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -35,8 +33,10 @@ public class Task extends AppCompatActivity {
             // Apply the adapter to the spinner
         verbs.setAdapter(adapter);
 
+        //a text box for the user to fill in
         TextView text = findViewById(R.id.TaskEnter);
 
+        //another scrolling list of times
         Spinner time = findViewById(R.id.Time);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
@@ -46,7 +46,7 @@ public class Task extends AppCompatActivity {
         // Apply the adapter to the spinner
         time.setAdapter(adapter2);
 
-
+        //add button
         Button addbutton = findViewById(R.id.Add);
         addbutton.setOnClickListener(unused -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -55,8 +55,8 @@ public class Task extends AppCompatActivity {
                     && !(text.getText().equals(""))
                     && time.getSelectedItemPosition() != -1) {
                 String creatingTask = "";
-                creatingTask = verbs.getSelectedItem().toString() +
-                        text.getText().toString() + time.getSelectedItem().toString();
+                creatingTask = verbs.getSelectedItem().toString() + " " +
+                        text.getText().toString() + " for " + time.getSelectedItem().toString() + " minutes";
                 int returnInt = postInfo(creatingTask);
                 if (returnInt == -1) {
                     dialog.setMessage("Error in Building Your Task");
@@ -76,6 +76,15 @@ public class Task extends AppCompatActivity {
     }
 
     public int postInfo (String toPost) {
+        JsonObject pointJson = new JsonObject();
+        pointJson.addProperty("task", toPost);
+
+        WebApi.startRequest(this, WebApi.API_BASE + "/lists/tasklist/tasks",
+                Request.Method.POST, pointJson, response -> {
+                    System.out.println(toPost);
+                }, error -> {
+                    Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+                });
 
         return 1;
     }
