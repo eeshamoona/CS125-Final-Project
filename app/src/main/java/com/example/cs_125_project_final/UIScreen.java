@@ -60,6 +60,7 @@ public class UIScreen extends AppCompatActivity {
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
+        //potentially change this???
         String url ="http://www.google.com";
 
 // Request a string response from the provided URL.
