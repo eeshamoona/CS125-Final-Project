@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">CS-125-Project-Final</string>
     <string name="action_settings">Settings</string>
+    <string-array name="verbs_array">
+        <item>Read</item>
+        <item>Write</item>
+        <item>Play</item>
+        <item>Do</item>
+        <item>Take</item>
+        <item>Find</item>
+        <item>Watch</item>
+        <item>Delegate</item>
+    </string-array>
+    <string-array name="time_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+    </string-array>
 </resources>
