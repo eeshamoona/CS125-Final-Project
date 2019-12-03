@@ -11,6 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UIScreen"></activity>
         <activity android:name=".Task"></activity>
+        <activity android:name=".Home"></activity>
+        <activity android:name=".Goal"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
