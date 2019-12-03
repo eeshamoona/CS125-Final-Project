@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -56,37 +57,18 @@ public class UIScreen extends AppCompatActivity {
 
         Button addTask = findViewById(R.id.addTask);
         addTask.setOnClickListener(unused -> startActivity(new Intent(this, Task.class)));
+        refresh();
         //finish();
     }
 
     /** Use this method to refresh the tasks being displayed */
     public void refresh() {
-        final TextView textView = (TextView) findViewById(R.id.text);
-// ...
-
-// Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        //potentially change this???
-        String url ="http://www.google.com";
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JsonParser parser = new JsonParser();
-                        JsonElement element = parser.parse(response);
-                        setUpDisplay(element.getAsJsonObject());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
-            }
-        });
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        WebApi.startRequest(this, WebApi.API_BASE + "/lists/tasklist/tasks",
+                Request.Method.GET, null, response -> {
+                    setUpDisplay(response);
+                }, error -> {
+                    Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
 
     public void setUpDisplay(final JsonObject result) {
