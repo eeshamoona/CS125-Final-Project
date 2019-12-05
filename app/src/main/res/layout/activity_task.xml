@@ -6,70 +6,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/backButton"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/back" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="100dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Spinner
-            android:id="@+id/Verbs"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:dropDownWidth="match_parent"
-            android:spinnerMode="dialog"
-            android:visibility="visible" />
-
-        <EditText
-            android:id="@+id/TaskEnter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:visibility="visible" />
-
-        <Spinner
-            android:id="@+id/Time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:dropDownWidth="match_parent"
-            android:spinnerMode="dialog"
-            android:visibility="visible" />
-
-    </LinearLayout>
+        android:text="Add a Task! "
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:typeface="normal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="251dp">
 
-        <Button
-            android:id="@+id/Add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="500dp"
-            android:layout_marginBottom="400dp"
-            android:text="@string/add"
+        <LinearLayout
+            android:layout_width="321dp"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Spinner
+                android:id="@+id/Verbs"
+                android:layout_width="174dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dropDownWidth="match_parent"
+                android:spinnerMode="dialog"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/TaskEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/Time"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dropDownWidth="match_parent"
+                android:spinnerMode="dialog"
+                android:visibility="visible" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/Add"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/add" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/back" />
 
 </LinearLayout>
