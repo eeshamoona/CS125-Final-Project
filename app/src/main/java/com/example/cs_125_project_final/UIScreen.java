@@ -54,7 +54,7 @@ public class UIScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         goalTitle = getIntent().getStringExtra("Title");
-        setTitle(goalTitle);
+        setTitle("Goal: " + goalTitle);
         setContentView(R.layout.activity_uiscreen);
 
         Button addTask = findViewById(R.id.addTask);
