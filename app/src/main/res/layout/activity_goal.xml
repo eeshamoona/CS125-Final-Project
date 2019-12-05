@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/goal_text" />
+        android:text="" />
 
     <TextView
         android:id="@+id/TimeTitle"

@@ -48,14 +48,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class UIScreen extends AppCompatActivity {
-
+    private String goalTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        goalTitle = getIntent().getStringExtra("Title");
+        setTitle(goalTitle);
         setContentView(R.layout.activity_uiscreen);
 
         Button addTask = findViewById(R.id.addTask);
-        addTask.setOnClickListener(unused -> startActivity(new Intent(this, Task.class)));
+        Intent intent = new Intent(this, Task.class);
+        intent.putExtra("GoalTitle", goalTitle);
+        addTask.setOnClickListener(unused -> startActivity(intent));
         //finish();
     }
 

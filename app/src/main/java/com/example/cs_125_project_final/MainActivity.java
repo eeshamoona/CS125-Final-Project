@@ -9,9 +9,13 @@ import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +23,7 @@ import java.util.List;
  * Main Activity class.
  */
 public class MainActivity extends AppCompatActivity {
+
 
     /** RadioButton Instance Variable. */
     //private int RC_SIGN_IN = 0;
@@ -30,10 +35,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) { // see below discussion
-            startActivity(new Intent(this, UIScreen.class)); // launch MainActivity
+            startActivity(new Intent(this, Home.class)); // launch MainActivity
             finish();
         } else {
+            /**Configure Google Sign In
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken("277611627975-idg724tb8nuco4vh00hkvvnesckts966.apps.googleusercontent.com")
+                    .requestEmail()
+                    .build();
+            **/
             List<AuthUI.IdpConfig> providers = Arrays.asList(
                     new AuthUI.IdpConfig.EmailBuilder().build());
             // Create and launch sign-in intent
@@ -69,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(new Intent(this, UIScreen.class)); // launch MainActivity
+                startActivity(new Intent(this, Home.class)); // launch MainActivity
                 finish();
             }
         }

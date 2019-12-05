@@ -76,17 +76,17 @@ public class Task extends AppCompatActivity {
     }
 
     public int postInfo (String toPost) {
+        int returnValue = 0;
         JsonObject pointJson = new JsonObject();
         pointJson.addProperty("task", toPost);
 
-        WebApi.startRequest(this, WebApi.API_BASE + "/lists/tasklist/tasks",
+        WebApi.startRequest(this, WebApi.API_BASE + "/some/endpoint",
                 Request.Method.POST, pointJson, response -> {
                     System.out.println(toPost);
                 }, error -> {
                     Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
                 });
-
-        return 1;
+        return returnValue;
     }
 
     //onPress of the add button

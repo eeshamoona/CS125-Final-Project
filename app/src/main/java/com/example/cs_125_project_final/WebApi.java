@@ -37,7 +37,7 @@ public final class WebApi {
     private static final String TAG = "WebApi";
 
     /** The URL at which the server is hosted. */
-    static final String API_BASE = "https://www.googleapis.com/tasks/v1";
+    static final String API_BASE = "https://storage.googleapis.com/storage/v1,";
 
     /** The URL at which the webserver socket is hosted. */
     static final String WEBSOCKET_BASE = "wss://cs125-cloud.cs.illinois.edu/Fall2019-MP";
