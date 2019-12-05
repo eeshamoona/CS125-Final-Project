@@ -61,7 +61,7 @@ public class UIScreen extends AppCompatActivity {
         Intent intent = new Intent(this, Task.class);
         intent.putExtra("GoalTitle", goalTitle);
         addTask.setOnClickListener(unused -> startActivity(intent));
-        refresh();
+        //refresh();
         //finish();
     }
 
