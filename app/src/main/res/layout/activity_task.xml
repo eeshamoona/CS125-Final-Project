@@ -68,7 +68,7 @@
     <Button
         android:id="@+id/backButton"
         android:layout_width="match_parent"
-        android:layout_height="79dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="36dp"
         android:text="@string/back" />
 
