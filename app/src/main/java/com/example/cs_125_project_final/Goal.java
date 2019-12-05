@@ -54,9 +54,12 @@ public class Goal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
 
+        Button back = findViewById(R.id.back);
+        back.setOnClickListener(unused -> startActivity(new Intent(this, Home.class)));
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            File file = new File(getApplicationContext().getFilesDir()+ "/output.txt");
+            File file = new File(getApplicationContext().getFilesDir()+ "/data.txt");
             listOfGoals = objectMapper.readValue(file, new TypeReference<List<GoalClass>>() {});
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +77,7 @@ public class Goal extends AppCompatActivity {
                 objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
                 try {
                     listOfGoals.add(gc);
-                    objectMapper.writeValue(new File (getApplicationContext().getFilesDir(),"output.txt"), listOfGoals);
+                    objectMapper.writeValue(new File (getApplicationContext().getFilesDir(),"data.txt"), listOfGoals);
                     dialog.setMessage("Added Goal!");
                     dialog.show();
                 } catch (IOException e) {

@@ -5,6 +5,8 @@
     <string name="goal_text">Goal Title</string>
     <string name="time_title">When is this goal due?</string>
     <string name="add">Add</string>
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
     <string-array name="verbs_array">
         <item>Read</item>
         <item>Write</item>

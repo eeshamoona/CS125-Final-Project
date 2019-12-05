@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Home extends AppCompatActivity {
+    private List<GoalClass> readListOfGoals = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +43,14 @@ public class Home extends AppCompatActivity {
         //Allows user to add a new goal
         Button addGoal = findViewById(R.id.addGoal);
         addGoal.setOnClickListener(unused -> startActivity(new Intent(this, Goal.class)));
+        refreshUI();
+    }
+    public void refreshUI() {
 
-        List<GoalClass> readListOfGoals = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            File file = new File(getApplicationContext().getFilesDir()+ "/output.txt");
+            File file = new File(getApplicationContext().getFilesDir()+ "/data.txt");
             readListOfGoals = mapper.readValue(file, new TypeReference<List<GoalClass>>() {});
         } catch (JsonGenerationException e)
         {
@@ -62,11 +65,27 @@ public class Home extends AppCompatActivity {
         if (readListOfGoals != null) {
 
             LinearLayout listOfGoals = findViewById(R.id.listOfGoals);
+            listOfGoals.removeAllViews();
+
             for (GoalClass c : readListOfGoals) {
                 View messageChunk = getLayoutInflater().inflate(R.layout.chunk_home,
                         listOfGoals, false);
                 TextView title = messageChunk.findViewById(R.id.goalTitle);
                 title.setText(c.getTitle());
+
+                Button deleteGoal = messageChunk.findViewById(R.id.DeleteGoal);
+                deleteGoal.setOnClickListener(unused -> {
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    try {
+                        readListOfGoals.remove(c);
+                        objectMapper.writeValue(new File (getApplicationContext().getFilesDir(),"data.txt"), readListOfGoals);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    refreshUI();
+                });
 
                 Button enterGoal = messageChunk.findViewById(R.id.EnterGoal);
                 Intent intent = new Intent(this, UIScreen.class);
