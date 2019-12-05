@@ -2,11 +2,14 @@ package com.example.cs_125_project_final;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,19 +52,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class UIScreen extends AppCompatActivity {
-    private String goalTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        goalTitle = getIntent().getStringExtra("Title");
-        setTitle("Goal: " + goalTitle);
+        GoalClass gc = (GoalClass) getIntent().getParcelableExtra("Goal");
+        setTitle("Goal: " + gc.getTitle());
         setContentView(R.layout.activity_uiscreen);
 
         Button addTask = findViewById(R.id.addTask);
         Intent intent = new Intent(this, Task.class);
-        intent.putExtra("GoalTitle", goalTitle);
+        intent.putExtra("Goal", gc);
         addTask.setOnClickListener(unused -> startActivity(intent));
-        //refresh();
+
+        if (gc.getTasks().length != 0) {
+            LinearLayout taskList = findViewById(R.id.taskList);
+            taskList.removeAllViews();
+
+            for (String s : gc.getTasks()) {
+                View messageChunk = getLayoutInflater().inflate(R.layout.chunk_uiscreen,
+                        taskList, false);
+                CheckBox taskItem = messageChunk.findViewById(R.id.taskToDo);
+                taskItem.setText(s);
+                taskList.addView(messageChunk);
+            }
+        }
+
         //finish();
     }
 

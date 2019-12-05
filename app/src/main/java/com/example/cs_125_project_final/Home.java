@@ -89,9 +89,8 @@ public class Home extends AppCompatActivity {
 
                 Button enterGoal = messageChunk.findViewById(R.id.EnterGoal);
                 Intent intent = new Intent(this, UIScreen.class);
-                intent.putExtra("Title", c.getTitle());
-                intent.putExtra("Tasks", c.getTasks());
-                enterGoal.setOnClickListener(ununsed -> startActivity(intent));
+                intent.putExtra("Goal", c);
+                enterGoal.setOnClickListener(unused -> startActivity(intent));
 
                 listOfGoals.addView(messageChunk);
             }
