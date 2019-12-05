@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Allows user to add a new goal
         Button addGoal = findViewById(R.id.addGoal);
         addGoal.setOnClickListener(unused -> startActivity(new Intent(this, Goal.class)));
 
