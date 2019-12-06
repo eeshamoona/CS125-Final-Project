@@ -78,6 +78,7 @@ public class Goal extends AppCompatActivity {
                 try {
                     listOfGoals.add(gc);
                     objectMapper.writeValue(new File (getApplicationContext().getFilesDir(),"data.txt"), listOfGoals);
+                    goalTitle.setText("");
                     dialog.setMessage("Added Goal!");
                     dialog.show();
                 } catch (IOException e) {
