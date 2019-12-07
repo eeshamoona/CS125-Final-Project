@@ -20,6 +20,38 @@
         android:layout_height="251dp">
 
         <LinearLayout
+            android:layout_width="404dp"
+            android:layout_height="78dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="104dp"
+                android:layout_height="match_parent"
+                android:text="Verb"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="158dp"
+                android:layout_height="match_parent"
+                android:text="Item to Complete"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:text="Time (minutes)"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="321dp"
             android:layout_height="80dp"
             android:orientation="horizontal"
@@ -59,17 +91,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/Add"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:text="@string/add" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginBottom="36dp"
-        android:text="@string/back" />
+        <Button
+            android:id="@+id/Add"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@color/colorBlueAccent"
+            android:text="@string/add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorGreyAccent"
+            android:text="@string/back"
+            app:layout_constraintTop_toBottomOf="@+id/Add"
+            tools:layout_editor_absoluteX="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
