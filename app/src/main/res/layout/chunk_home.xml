@@ -3,11 +3,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <Space
+        android:layout_width="14dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/goalTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="100pt"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/EnterGoal"
@@ -22,4 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/delete" />
+
+    <Space
+        android:layout_width="14dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 </LinearLayout>
