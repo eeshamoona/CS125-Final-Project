@@ -1,64 +1,64 @@
 package com.example.cs_125_project_final;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class GoalClass implements Parcelable {
+/**
+ * Goal Class to store information about the Goals.
+ */
+public class GoalClass {
+    /**
+     * Goal Title
+     */
     private String title;
+    /**
+     * Array of String of tasks.
+     */
     private String[] tasks = new String[0];
+    /**
+     * Array of String of completed tasks.
+     */
     private String[] completedTasks = new String[0];
 
-    /* everything below here is for implementing Parcelable */
-
-    // 99.9% of the time you can just ignore this
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    // write your object's data to the passed-in Parcel
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(title);
-        out.writeStringArray(tasks);
-    }
-
-    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
-    public static final Parcelable.Creator<GoalClass> CREATOR = new Parcelable.Creator<GoalClass>() {
-        public GoalClass createFromParcel(Parcel in) {
-            return new GoalClass(in);
-        }
-
-        public GoalClass[] newArray(int size) {
-            return new GoalClass[size];
-        }
-    };
-
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    private GoalClass(Parcel in) {
-        title = in.readString();
-    }
-
+    /**
+     * empty constructor.
+     */
     public GoalClass(){
-
     }
 
+    /**
+     * getter for title of Goal
+     * @return String title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * getter for tasks
+     * @return String array of tasks
+     */
     public String[] getTasks() {
         return tasks;
     }
 
+    /**
+     * getter for completed tasks
+     * @return String array of completed tasks
+     */
     public String[] getCompletedTasks() {
         return completedTasks;
     }
 
+    /**
+     * setter for title
+     * @param s String title to set
+     */
     public void setTitle(String s) {
         title = s;
     }
 
+    /**
+     * Function to add a task to the task array
+     * @param arg String task to add to the array
+     */
     public void addTask(String arg) {
         int length = tasks.length + 1;
         String[] temp = new String[length];
@@ -68,7 +68,10 @@ public class GoalClass implements Parcelable {
         temp[length - 1] = arg;
         tasks = temp;
     }
-
+    /**
+     * Function to add a task to the completed task array
+     * @param arg String task to add to the array
+     */
     public void addCompletedTask(String arg) {
         int length = completedTasks.length + 1;
         String[] temp = new String[length];
@@ -79,6 +82,10 @@ public class GoalClass implements Parcelable {
         completedTasks = temp;
     }
 
+    /**
+     * Functio to remove a task from the task array
+     * @param arg String task to remove from the array
+     */
     public void removeTask(String arg) {
         int length = tasks.length - 1;
         String[] temp = new String[length];

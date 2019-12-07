@@ -7,17 +7,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,40 +25,53 @@ import java.util.List;
  * Task Class used to process the data the user enters on the activity_task screen.
  */
 public class Task extends AppCompatActivity {
+    /**
+     *  List of GoalClass.
+     */
     private List<GoalClass> readListOfGoals = new ArrayList<>();
+    /**
+     * GoalClass to add the task to.
+     */
     private GoalClass toEdit;
+
+    /**
+     * onCreate called at the start Task Screen.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        //includes a scrolling list of verbs
+        //Scrolling list of verbs
         Spinner verbs = findViewById(R.id.Verbs);
-            // Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.verbs_array, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         verbs.setAdapter(adapter);
 
-        //a text box for the user to fill in
+        //Text box for the user to fill in
         TextView text = findViewById(R.id.TaskEnter);
 
-        //another scrolling list of times
+        //Scrolling list of times
         Spinner time = findViewById(R.id.Time);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.time_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
+        //Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
+        //Apply the adapter to the spinner
         time.setAdapter(adapter2);
 
+        //call findGoalClass()
         if (findGoalClass() != null) {
             toEdit = findGoalClass();
         }
 
+        //set a setOnClickListener on backButton to redirect to UIScreen
         Button backButton = findViewById(R.id.backButton);
         Intent intentTask = new Intent(this, UIScreen.class);
         intentTask.putExtra("GoalTitle", toEdit.getTitle());
@@ -70,25 +80,23 @@ public class Task extends AppCompatActivity {
             startActivity(intentTask);
         });
 
-        //add button
+        //set a setOnClickListener on addButton to add the task to the GoalClass
         Button addButton = findViewById(R.id.Add);
         addButton.setOnClickListener(unused -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog dialog = builder.create();
+            //if the user has filled out all the fields
             if (!verbs.getSelectedItem().toString().equals("-") && !(text.getText().equals("")) && !time.getSelectedItem().toString().equals("-")) {
                 String creatingTask = verbs.getSelectedItem().toString() + " " +
                         text.getText().toString() + " for " + time.getSelectedItem().toString() + " minutes";
-                int returnInt = postInfo(creatingTask);
-                if (returnInt == -1) {
-                    dialog.setMessage("Error in Building Your Task");
-                    dialog.show();
-                } else {
-                    dialog.setMessage("Task Created Successfully");
-                    dialog.show();
-                }
+                //add the task to GoalClass
+                postInfo(creatingTask);
+                dialog.setMessage("Task Created Successfully");
+                dialog.show();
                 verbs.setSelection(0);
                 text.setText("");
                 time.setSelection(0);
+            //otherwise show a dialog to fill out the information
             } else {
                 dialog.setMessage("Please Fill out all information");
                 dialog.show();
@@ -96,7 +104,11 @@ public class Task extends AppCompatActivity {
         });
     }
 
-    public int postInfo (String toPost) {
+    /**
+     * add task and write the value on the data.txt
+     * @param toPost String task
+     */
+    public void postInfo (String toPost) {
         toEdit.addTask(toPost);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -105,9 +117,12 @@ public class Task extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return 1;
     }
 
+    /**
+     * find the GoalClass using the title
+     * @return found GoalClass
+     */
     public GoalClass findGoalClass() {
         String gcTitle = getIntent().getStringExtra("GoalTitleTask");
         ObjectMapper mapper = new ObjectMapper();
@@ -133,16 +148,4 @@ public class Task extends AppCompatActivity {
         }
         return null;
     }
-
-    //onPress of the add button
-        //make sure that there has been a selection of verbs/ text/ time
-        //if yes,
-            //compile all the information from the components into a String
-            //addTask to JSON file using the taskAPI
-            //tell user that it has been added --> notification? Alert Dialog?
-            //clear all the information so the user can add another.
-        //if no,
-            //Alert Dialog? Somehow tell the user to fill out the info
-
-    //post the JSON file to the Task Web API for the UI screen to use
 }

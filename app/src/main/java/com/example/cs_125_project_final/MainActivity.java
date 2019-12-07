@@ -4,31 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Main Activity class.
+ * Main Activity class. Copied from CS-125 MP LaunchActivity to start a login screen
+ * using FirebaseAuth
  */
 public class MainActivity extends AppCompatActivity {
 
-
-    /** RadioButton Instance Variable. */
-    //private int RC_SIGN_IN = 0;
     /**
-     * onCreate called at the start Login Screen of the game.
+     * onCreate called at the start Login Screen.
      * @param savedInstanceState
      */
     @Override
