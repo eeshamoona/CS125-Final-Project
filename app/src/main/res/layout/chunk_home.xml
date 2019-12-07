@@ -12,7 +12,6 @@
         android:id="@+id/goalTitle"
         android:layout_width="100pt"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp" />
 
     <Button
