@@ -21,6 +21,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -43,56 +47,83 @@ import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class UIScreen extends AppCompatActivity {
-
+    private List<GoalClass> readListOfGoals = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GoalClass gc = (GoalClass) getIntent().getParcelableExtra("Goal");
-        setTitle("Goal: " + gc.getTitle());
+        String toPrint = getIntent().getStringExtra("GoalTitle");
+        System.out.println(toPrint);
+        setTitle("Goal: " + toPrint);
         setContentView(R.layout.activity_uiscreen);
 
         Button addTask = findViewById(R.id.addTask);
         Intent intent = new Intent(this, Task.class);
-        intent.putExtra("Goal", gc);
+        intent.putExtra("GoalTitleTask", toPrint);
         addTask.setOnClickListener(unused -> startActivity(intent));
 
-        if (gc.getTasks().length != 0) {
-            LinearLayout taskList = findViewById(R.id.taskList);
+        Button back = findViewById(R.id.backButton);
+        back.setOnClickListener(unused -> startActivity(new Intent(this, Home.class)));
+
+        GoalClass temp = findGoalClass();
+
+        if (temp != null && temp.getTasks().length != 0) {
+            LinearLayout taskList = findViewById(R.id.taskGroup);
             taskList.removeAllViews();
 
-            for (String s : gc.getTasks()) {
+            for (String s : temp.getTasks()) {
                 View messageChunk = getLayoutInflater().inflate(R.layout.chunk_uiscreen,
                         taskList, false);
-                CheckBox taskItem = messageChunk.findViewById(R.id.taskToDo);
-                taskItem.setText(s);
+                CheckBox title = messageChunk.findViewById(R.id.taskToDo);
+                title.setText(s);
                 taskList.addView(messageChunk);
+                System.out.println(s);
             }
         }
 
         //finish();
     }
 
-    /** Use this method to refresh the tasks being displayed */
-    public void refresh() {
-        WebApi.startRequest(this, WebApi.API_BASE + "/lists/tasklist/tasks",
-                Request.Method.GET, null, response -> {
-                    setUpDisplay(response);
-                }, error -> {
-                    Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
-                });
+    public GoalClass findGoalClass() {
+        String gcTitle = getIntent().getStringExtra("GoalTitle");
+        ObjectMapper mapper = new ObjectMapper();
+        try
+        {
+            File file = new File(getApplicationContext().getFilesDir()+ "/data.txt");
+            readListOfGoals = mapper.readValue(file, new TypeReference<List<GoalClass>>() {});
+        } catch (JsonGenerationException e)
+        {
+            e.printStackTrace();
+        } catch (JsonMappingException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        for (GoalClass gc : readListOfGoals) {
+            if (gc.getTitle().equals(gcTitle)) {
+                return gc;
+            }
+        }
+        return null;
     }
 
+
+/**
     public void setUpDisplay(final JsonObject result) {
-        ViewGroup taskList = findViewById(R.id.taskList);
+        ViewGroup taskList = findViewById(R.id.taskGroup);
         taskList.removeAllViews();
 
         JsonArray taskArray = result.get("tasks").getAsJsonArray();
@@ -108,5 +139,5 @@ public class UIScreen extends AppCompatActivity {
         }
     }
 
-
+**/
 }

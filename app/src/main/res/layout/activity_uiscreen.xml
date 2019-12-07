@@ -10,37 +10,42 @@
         android:id="@+id/addTask"
         android:layout_width="128dp"
         android:layout_height="79dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="32dp"
         android:text="Add Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskGroup"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="119dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="31dp"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskGroup" />
 
     <LinearLayout
         android:id="@+id/taskGroup"
-        android:layout_width="123dp"
-        android:layout_height="482dp"
-        android:layout_marginStart="288dp"
-        android:layout_marginBottom="80dp"
+        android:layout_width="227dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
-            android:id="@+id/taskList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="280dp"
-            android:layout_marginLeft="280dp"
-            android:layout_marginBottom="80dp"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.06"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
