@@ -63,4 +63,17 @@ public class GoalClass implements Parcelable {
         temp[length - 1] = arg;
         tasks = temp;
     }
+
+    public void removeTask(String arg) {
+        int length = tasks.length - 1;
+        String[] temp = new String[length];
+        int counter = 0;
+        for (int i = 0; i < tasks.length; i++) {
+            if(!tasks[i].equals(arg)){
+                temp[counter] = tasks[i];
+                counter++;
+            }
+        }
+        tasks = temp;
+    }
 }

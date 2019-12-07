@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -59,6 +60,7 @@ import java.util.List;
 
 public class UIScreen extends AppCompatActivity {
     private List<GoalClass> readListOfGoals = new ArrayList<>();
+    private GoalClass printingClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,23 +77,38 @@ public class UIScreen extends AppCompatActivity {
         Button back = findViewById(R.id.backButton);
         back.setOnClickListener(unused -> startActivity(new Intent(this, Home.class)));
 
-        GoalClass temp = findGoalClass();
+        printingClass = findGoalClass();
+        setUpUI();
 
-        if (temp != null && temp.getTasks().length != 0) {
+        //finish();
+    }
+
+    public void setUpUI() {
+        if (printingClass != null && printingClass.getTasks().length != 0) {
             LinearLayout taskList = findViewById(R.id.taskGroup);
             taskList.removeAllViews();
 
-            for (String s : temp.getTasks()) {
+            for (String s : printingClass.getTasks()) {
                 View messageChunk = getLayoutInflater().inflate(R.layout.chunk_uiscreen,
                         taskList, false);
                 CheckBox title = messageChunk.findViewById(R.id.taskToDo);
                 title.setText(s);
+                title.setOnClickListener(unused -> {
+                    //Add to completed list
+                    printingClass.removeTask(s);//Remove from tasks
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    try {
+                        objectMapper.writeValue(new File (getApplicationContext().getFilesDir(),"data.txt"), readListOfGoals);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    setUpUI();// set up UI again
+                });
                 taskList.addView(messageChunk);
                 System.out.println(s);
             }
         }
-
-        //finish();
     }
 
     public GoalClass findGoalClass() {
