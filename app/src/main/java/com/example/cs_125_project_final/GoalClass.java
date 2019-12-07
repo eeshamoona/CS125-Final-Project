@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class GoalClass implements Parcelable {
     private String title;
     private String[] tasks = new String[0];
+    private String[] completedTasks = new String[0];
 
     /* everything below here is for implementing Parcelable */
 
@@ -50,6 +51,10 @@ public class GoalClass implements Parcelable {
         return tasks;
     }
 
+    public String[] getCompletedTasks() {
+        return completedTasks;
+    }
+
     public void setTitle(String s) {
         title = s;
     }
@@ -62,6 +67,16 @@ public class GoalClass implements Parcelable {
         }
         temp[length - 1] = arg;
         tasks = temp;
+    }
+
+    public void addCompletedTask(String arg) {
+        int length = completedTasks.length + 1;
+        String[] temp = new String[length];
+        for (int i = 0; i < length - 1; i++) {
+            temp[i] = completedTasks[i];
+        }
+        temp[length - 1] = arg;
+        completedTasks = temp;
     }
 
     public void removeTask(String arg) {

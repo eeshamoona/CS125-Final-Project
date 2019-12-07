@@ -94,7 +94,7 @@ public class UIScreen extends AppCompatActivity {
                 CheckBox title = messageChunk.findViewById(R.id.taskToDo);
                 title.setText(s);
                 title.setOnClickListener(unused -> {
-                    //Add to completed list
+                    printingClass.addCompletedTask(s);//Add to completed list
                     printingClass.removeTask(s);//Remove from tasks
                     ObjectMapper objectMapper = new ObjectMapper();
                     objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -137,24 +137,4 @@ public class UIScreen extends AppCompatActivity {
         return null;
     }
 
-
-/**
-    public void setUpDisplay(final JsonObject result) {
-        ViewGroup taskList = findViewById(R.id.taskGroup);
-        taskList.removeAllViews();
-
-        JsonArray taskArray = result.get("tasks").getAsJsonArray();
-        for (JsonElement taskElement : taskArray) {
-            ViewGroup taskGroup = findViewById(R.id.taskGroup);
-            taskGroup.setVisibility(View.GONE);
-            View taskChunk = getLayoutInflater().inflate(R.layout.chunk_uiscreen,
-                    taskList, false);
-            JsonObject taskObj = taskElement.getAsJsonObject();
-
-            TextView task = taskChunk.findViewById(R.id.taskToDo);
-            task.setText(taskObj.getAsString());
-        }
-    }
-
-**/
 }
