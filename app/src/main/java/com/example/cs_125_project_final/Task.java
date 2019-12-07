@@ -75,7 +75,7 @@ public class Task extends AppCompatActivity {
         addButton.setOnClickListener(unused -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog dialog = builder.create();
-            if (verbs.getSelectedItemPosition() != -1 && !(text.getText().equals("")) && time.getSelectedItemPosition() != -1) {
+            if (!verbs.getSelectedItem().toString().equals("-") && !(text.getText().equals("")) && !time.getSelectedItem().toString().equals("-")) {
                 String creatingTask = verbs.getSelectedItem().toString() + " " +
                         text.getText().toString() + " for " + time.getSelectedItem().toString() + " minutes";
                 int returnInt = postInfo(creatingTask);
@@ -86,9 +86,9 @@ public class Task extends AppCompatActivity {
                     dialog.setMessage("Task Created Successfully");
                     dialog.show();
                 }
-                verbs.setSelection(-1);
+                verbs.setSelection(0);
                 text.setText("");
-                time.setSelection(-1);
+                time.setSelection(0);
             } else {
                 dialog.setMessage("Please Fill out all information");
                 dialog.show();

@@ -8,6 +8,7 @@
     <string name="back">Back</string>
     <string name="delete">Delete</string>
     <string-array name="verbs_array">
+        <item>-</item>
         <item>Read</item>
         <item>Write</item>
         <item>Play</item>
@@ -18,6 +19,7 @@
         <item>Delegate</item>
     </string-array>
     <string-array name="time_array">
+        <item>-</item>
         <item>5</item>
         <item>10</item>
         <item>15</item>

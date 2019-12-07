@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskGroup"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.531" />
 
     <Button
         android:id="@+id/backButton"
@@ -31,13 +31,14 @@
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addTask"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskGroup" />
 
     <LinearLayout
         android:id="@+id/taskGroup"
-        android:layout_width="227dp"
-        android:layout_height="600dp"
+        android:layout_width="234dp"
+        android:layout_height="564dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
