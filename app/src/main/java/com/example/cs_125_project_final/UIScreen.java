@@ -84,7 +84,7 @@ public class UIScreen extends AppCompatActivity {
     }
 
     public void setUpUI() {
-        if (printingClass != null && printingClass.getTasks().length != 0) {
+        if (printingClass != null) {
             LinearLayout taskList = findViewById(R.id.taskGroup);
             taskList.removeAllViews();
 
