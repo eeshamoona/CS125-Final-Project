@@ -1,1 +1,1 @@
-# CS125-Final-Project-2019
+# Intertia: The Task Managing Application
